@@ -5,6 +5,7 @@
 #include "../include/ascii.hpp"
 #include "../include/utils.hpp"
 #include "../include/segments.hpp"
+#include "../include/descriptors.hpp"
 
 using std::cout;
 using std::endl;
