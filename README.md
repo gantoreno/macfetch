@@ -1,19 +1,16 @@
-
 <p align="center">
   <img src=".github/main.png" width="600"/>
 </p>
 
+# Macfetch
 
-<p align="center">A macOS <a href="https://github.com/dylanaraps/neofetch">Neofetch</a> alternative written in <a href="https://en.wikipedia.org/wiki/C++">C++</a>.<p>
+![https://img.shields.io/github/issues/gantoreno/macfetch](https://img.shields.io/github/issues/gantoreno/macfetch) ![https://img.shields.io/github/forks/gantoreno/macfetch](https://img.shields.io/github/forks/gantoreno/macfetch) ![https://img.shields.io/github/stars/gantoreno/macfetch](https://img.shields.io/github/stars/gantoreno/macfetch) ![https://img.shields.io/github/license/gantoreno/macfetch](https://img.shields.io/github/license/gantoreno/macfetch)
 
-<p align="center">
-  <img src="https://img.shields.io/github/issues/gantoreno/macfetch" />
-  <img src="https://img.shields.io/github/forks/gantoreno/macfetch" />
-  <img src="https://img.shields.io/github/stars/gantoreno/macfetch" />
-  <img src="https://img.shields.io/github/license/gantoreno/macfetch" />
-</p>
+A macOS [Neofetch](https://github.com/dylanaraps/neofetch) alternative written in [C++](https://en.wikipedia.org/wiki/C++).
 
-_"Why? Why another Neofetch rewrite?"_ I hear you ask, and the answer is pretty simple. Yes, there are multiple Neofetch rewrites out there, most of them probably faster than Macfetch, but besides doing absolutely the same as Neofetch (but much faster), they all share something in common, **macOS is not supported**.
+## Why?
+
+_"But seriously, why? Why another Neofetch rewrite?"_ I hear you ask, and the answer is pretty simple. There are multiple Neofetch rewrites out there, most of them probably faster than Macfetch, but besides doing absolutely the same as Neofetch (but much faster), they all share something in common, **macOS is not supported**.
 
 - [`paleofetch`](https://github.com/ss7m/paleofetch) only supports Arch (and it's no longer maintained).
 - [`fastfetch`](https://github.com/LinusDierheimer/fastfetch) works only on a handful of Linux distros.
