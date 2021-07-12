@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../include/ascii.h"
-#include "../include/utils.h"
-#include "../include/segments.h"
+#include "../include/ascii.hpp"
+#include "../include/utils.hpp"
+#include "../include/segments.hpp"
 
 using std::cout;
 using std::endl;

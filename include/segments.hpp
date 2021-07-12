@@ -1,5 +1,5 @@
-#ifndef SEGMENTS_H
-#define SEGMENTS_H
+#ifndef SEGMENTS_HPP
+#define SEGMENTS_HPP
 
 #include <string>
 

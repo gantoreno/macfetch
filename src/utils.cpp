@@ -5,8 +5,8 @@
 #include <regex>
 #include <array>
 
-#include "../include/colors.h"
-#include "../include/utils.h"
+#include "../include/colors.hpp"
+#include "../include/utils.hpp"
 
 using std::array;
 using std::cout;

@@ -1,5 +1,5 @@
-#ifndef COLORS_H
-#define COLORS_H
+#ifndef COLORS_HPP
+#define COLORS_HPP
 
 #define DEFAULT "\033[0m"
 #define BOLD "\033[1m"

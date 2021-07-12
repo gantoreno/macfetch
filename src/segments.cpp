@@ -2,9 +2,9 @@
 #include <vector>
 #include <string>
 
-#include "../include/colors.h"
-#include "../include/utils.h"
-#include "../include/segments.h"
+#include "../include/colors.hpp"
+#include "../include/utils.hpp"
+#include "../include/segments.hpp"
 
 using std::string;
 using std::to_string;

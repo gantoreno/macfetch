@@ -1,8 +1,8 @@
 #include <vector>
 #include <string>
 
-#include "../include/ascii.h"
-#include "../include/colors.h"
+#include "../include/ascii.hpp"
+#include "../include/colors.hpp"
 
 using std::string;
 using std::vector;
