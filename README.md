@@ -1,8 +1,10 @@
-<h1 align="center">Macfetch</h1>
 
 <p align="center">
   <img src=".github/main.png" width="600"/>
 </p>
+
+
+<p align="center">A macOS <a href="https://github.com/dylanaraps/neofetch">Neofetch</a> alternative written in <a href="https://en.wikipedia.org/wiki/C++">C++</a>.<p>
 
 <p align="center">
   <img src="https://img.shields.io/github/issues/gantoreno/macfetch" />
@@ -11,16 +13,13 @@
   <img src="https://img.shields.io/github/license/gantoreno/macfetch" />
 </p>
 
-A macOS [Neofetch](https://github.com/dylanaraps/neofetch) alternative written in [C++](https://en.wikipedia.org/wiki/C++).
-
-## But why?
-
 _"Why? Why another Neofetch rewrite?"_ I hear you ask, and the answer is pretty simple. Yes, there are multiple Neofetch rewrites out there, most of them probably faster than Macfetch, but besides doing absolutely the same as Neofetch (but much faster), they all share something in common, **macOS is not supported**.
 
-- [`paleofetch`](https://github.com/ss7m/paleofetch): only supports Arch (and it's no longer maintained).
-- [`fastfetch`](https://github.com/LinusDierheimer/fastfetch): only supports some Linux distros.
-- [`freshfetch`](https://github.com/K4rakara/freshfetch): same as the above.
-- [`macchina`](https://github.com/Macchina-CLI/macchina): lacks the Neofetch aesthetic.
+- [`paleofetch`](https://github.com/ss7m/paleofetch) only supports Arch (and it's no longer maintained).
+- [`fastfetch`](https://github.com/LinusDierheimer/fastfetch) works only on a handful of Linux distros.
+- [`freshfetch`](https://github.com/K4rakara/freshfetch) same as the above.
+- [`macchina`](https://github.com/Macchina-CLI/macchina) lacks the Neofetch aesthetic.
+- [`afetch`](https://github.com/13-CF/afetch) it'awesome, but not what I'm looking for.
 
 Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as its name suggests) is **macOS-only**.
 
