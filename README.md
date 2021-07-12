@@ -69,7 +69,7 @@ vector<segment> segments = {
 
 The Foo segment has a name of "Foo" and a descriptor function `foo`. But, how does this descriptor look and behave?
 
-All available segment descriptors are declared inside `include/segments.h` and defined inside `src/segments.cpp`, a segment descriptor follows this rules:
+All available segment descriptors are declared inside `include/descriptors.hpp` and defined inside `src/descriptors.cpp`, a segment descriptor follows this rules:
 
 - A `void*` return type.
 - A `string& out` parameter.
@@ -111,11 +111,11 @@ Pretty readable, right? Now you have everything you need to start customizing Ma
 
 ### Colors
 
-All colors are macro-defined inside `include/colors.h`, feel free to look around and see how they're used througout the program.
+All colors are macro-defined inside `include/colors.hpp`, feel free to look around and see how they're used througout the program.
 
 ### ASCII
 
-See `include/ascii.h` & `src/ascii.cpp` to view & modify available ascii logos. Notice how the `ascii_darwin` has an all-spaces final row the same length as the previous rows, this is in order to use that row to align subsequent segments that overflow the logo height. Make sure to include a similar one whenever you add/modify a logo.
+See `include/ascii.hpp` & `src/ascii.cpp` to view & modify available ascii logos. Notice how the `ascii_darwin` has an all-spaces final row the same length as the previous rows, this is in order to use that row to align subsequent segments that overflow the logo height. Make sure to include a similar one whenever you add/modify a logo.
 
 # License
 
