@@ -22,7 +22,7 @@ _"Why? Why another Neofetch rewrite?"_ I hear you ask, and the answer is pretty 
 - [`freshfetch`](https://github.com/K4rakara/freshfetch): same as the above.
 - [`macchina`](https://github.com/Macchina-CLI/macchina): lacks the Neofetch aesthetic.
 
-Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as it name suggests) is **macOS-only**.
+Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as its name suggests) is **macOS-only**.
 
 ## Installation
 
