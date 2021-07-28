@@ -67,7 +67,7 @@ void display(string username, string hostname, vector<string> ascii, vector<segm
         switch (i - 2)
         {
         case -2:
-            line += BOLD FG2 + username + DEFAULT "@" BOLD FG2 + hostname + DEFAULT;
+            line += BOLD FG12 + username + DEFAULT "@" BOLD FG12 + hostname + DEFAULT;
             break;
         case -1:
             line += string(username.length() + hostname.length() + 1, '-');
@@ -80,7 +80,7 @@ void display(string username, string hostname, vector<string> ascii, vector<segm
                 string name = segments.at(i - 2).name;
                 string output = segment_outputs[i - 2];
 
-                line += (!name.empty() ? BOLD FG3 + name + DEFAULT + ": " : "") + output;
+                line += (!name.empty() ? BOLD FG4 + name + DEFAULT + ": " : "") + output;
             }
             break;
         }

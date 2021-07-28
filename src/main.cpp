@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     string username = exec("whoami");
     string hostname = exec("hostname");
 
-    vector<string> ascii = ascii_darwin;
+    vector<string> ascii = ascii_startrail;
     vector<segment> segments = {
         segment("OS", os),
         segment("Host", host),
