@@ -50,6 +50,7 @@ int main(int argc, char** argv)
         segment("CPU", cpu),
         segment("GPU", gpu),
         segment("Memory", memory),
+        segment("Battery", battery),
         segment(empty),
         segment(dark_colors),
         segment(bright_colors),

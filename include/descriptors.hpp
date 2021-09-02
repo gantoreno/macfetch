@@ -17,6 +17,7 @@ void* terminal(string& out);
 void* cpu(string& out);
 void* gpu(string& out);
 void* memory(string& out);
+void* battery(string& out);
 void* empty(string& out);
 void* dark_colors(string& out);
 void* bright_colors(string& out);

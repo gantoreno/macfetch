@@ -160,6 +160,13 @@ void* memory(string& out)
     return NULL;
 }
 
+void* battery(string& out)
+{
+    out = exec("pmset -g batt | grep -Eo \"\\d+%\"");
+
+    return NULL;
+}
+
 void* dark_colors(string& out)
 {
     string blocks = "";
