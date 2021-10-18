@@ -28,24 +28,23 @@ vector<string> ascii_darwin = {
     BOLD FG2 "                              " DEFAULT,
 };
 
-vector<string> ascii_startrail = {
-    BOLD FG12 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⠤⠶⠒⠛⠛⠛⠛⠛⠓⠶⠶⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡴⠾⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠈⠛⣷⣦⡀⠀⠀⠀⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⠀⢀⣴⠏⠀⠀⠀⠀⠀⠀⢀⣤⣶⡿⠿⠛⠛⠛⠛⠛⠿⠿⣷⣶⣄⡀⠀⠀⠀⠀⠀⠙⢿⣦⡀⠀⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⢠⠏⠁⠀⠀⠀⠀⢀⣴⠾⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠿⣶⣄⠀⠀⠀⠀⠈⠹⣷⡀⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⣴⠛⠀⠀⠀⠀⢀⣴⠟⠋⠀⠀⠀⠀⠀⢀⣀⣤⣤⣄⣀⣀⠀⠀⠀⠀⠀⠈⠻⣷⣤⠀⠀⠀⠀⠘⣿⣄⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⢸⠃⠀⠀⠀⠀⣠⡾⠁⠀⠀⠀⠀⢀⣤⠾⠟⠛⠋⠉⠙⠛⠻⢿⣦⡀⠀⠀⠀⠀⠈⠻⣧⡀⠀⠀⠀⠙⣿⡆⠀" DEFAULT,
-    BOLD FG12 "⢀⡇⠀⠀⠀⠀⢀⡿⠁⠀⠀⠀⠀⣰⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠋⠀⠀⠀⠀⠀⠀⠹⣷⡀⠀⠀⠀⠸⣷⡀" DEFAULT,
-    BOLD FG12 "⢸⠃⠀⠀⠀⢀⣿⠁⠀⠀⠀⠀⣾⡟⠀⠀⠀⠀⢀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣧⠀⠀⠀⠀⢿⡇" DEFAULT,
-    BOLD FG12 "⣿⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠰⡟⠀⠀⠀⠀⣰⣿⠟⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠋⠀⠀⠀⠀⢸⣿" DEFAULT,
-    BOLD FG12 "⣿⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⣰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿" DEFAULT,
-    BOLD FG12 "⢿⠀⠀⠀⠀⠈⣧⠀⠀⠀⠀⠰⣧⠀⠀⠀⠀⠘⠻⣦⣤⣤⡔⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿" DEFAULT,
-    BOLD FG12 "⠸⡄⠀⠀⠀⠀⠻⡀⠀⠀⠀⠀⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⡇" DEFAULT,
-    BOLD FG12 "⠀⢃⠀⠀⠀⠀⠈⢷⡀⠀⠀⠀⠀⠈⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠀" DEFAULT,
-    BOLD FG12 "⠀⠸⡄⠀⠀⠀⠀⠀⠻⡀⠀⠀⠀⠀⠀⠈⠙⠶⢦⣤⣤⣤⡤⠴⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠇⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠈⢆⠀⠀⠀⠀⠀⠙⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⠋⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⠈⢢⡀⠀⠀⠀⠀⠀⠉⠒⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⠁⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⠀⠀⠙⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠁⠀⠀⠀⠀" DEFAULT,
-    BOLD FG12 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" DEFAULT
+vector<string> ascii_gabriel = {
+    BOLD DEFAULT "            .xWXc " DEFAULT,
+    BOLD DEFAULT "            :XMMx." DEFAULT,
+    BOLD DEFAULT "    .;lodddkXMMX: " DEFAULT,
+    BOLD DEFAULT "  'dKWMMMMMMMMXc  " DEFAULT,
+    BOLD DEFAULT " :KMMNkWMMWXWMWx. " DEFAULT,
+    BOLD DEFAULT "'0MMK:'    ';WMWo " DEFAULT,
+    BOLD DEFAULT ":XMMx.      .XMMx." DEFAULT,
+    BOLD DEFAULT "'0MMXc.    .xWMNl " DEFAULT,
+    BOLD DEFAULT " ;KMMNOollxKWMNd. " DEFAULT,
+    BOLD DEFAULT "  .o0NMMMMMMMWx.  " DEFAULT,
+    BOLD DEFAULT "    .,clodkXMMNo. " DEFAULT,
+    BOLD DEFAULT " .';.      'kWMNl " DEFAULT,
+    BOLD DEFAULT ",KMNl       :XMMx." DEFAULT,
+    BOLD DEFAULT ",KMM0;     .dWMWo " DEFAULT,
+    BOLD DEFAULT " cXMMXxcmxoOWMWk. " DEFAULT,
+    BOLD DEFAULT "  ,xXWMMMMMMW0l.  " DEFAULT,
+    BOLD DEFAULT "   .;xXWMWN0l.    " DEFAULT,
+    BOLD DEFAULT "                  " DEFAULT
 };
