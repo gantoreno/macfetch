@@ -1,13 +1,13 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <string>
 #include <vector>
+#include <string>
 
 #include "./segments.hpp"
 
-using std::string;
 using std::vector;
+using std::string;
 
 string exec(const char* cmd);
 

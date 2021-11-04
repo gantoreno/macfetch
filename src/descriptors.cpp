@@ -1,13 +1,13 @@
-#include <string>
 #include <vector>
+#include <string>
 
 #include "../include/colors.hpp"
 #include "../include/utils.hpp"
 #include "../include/descriptors.hpp"
 
+using std::vector;
 using std::string;
 using std::to_string;
-using std::vector;
 
 void* os(string& out)
 {
