@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     string username = exec("whoami");
     string hostname = exec("hostname");
 
-    vector<string> ascii = ascii_gabriel;
+    vector<string> ascii = ascii_darwin;
     vector<segment> segments = {
         segment("OS", os),
         segment("Host", host),
@@ -50,7 +50,6 @@ int main(int argc, char** argv)
         segment("CPU", cpu),
         segment("GPU", gpu),
         segment("Memory", memory),
-        // segment("Battery", battery),
         segment(empty),
         segment(dark_colors),
         segment(bright_colors),

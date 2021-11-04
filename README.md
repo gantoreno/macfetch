@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/main.png" width="600"/>
+  <img src=".github/screenshot.png" width="600"/>
 </p>
 
 # Macfetch
@@ -10,13 +10,13 @@ A macOS [Neofetch](https://github.com/dylanaraps/neofetch) alternative written i
 
 ## Why?
 
-_"But seriously, why? Why another Neofetch rewrite?"_ I hear you ask, and the answer is pretty simple. There are multiple Neofetch rewrites out there, most of them probably faster than Macfetch, but besides doing absolutely the same as Neofetch (but much faster), they all share something in common, **macOS is not supported**.
+_"But seriously, why? Why another Neofetch alternative?"_ I hear you ask, and the answer is pretty simple. There are multiple Neofetch rewrites out there, most of them probably faster than Macfetch, but besides doing absolutely the same as Neofetch (but much faster), they all share something in common, **macOS is not supported**.
 
-- [`paleofetch`](https://github.com/ss7m/paleofetch) only supports Arch (and it's no longer maintained).
-- [`fastfetch`](https://github.com/LinusDierheimer/fastfetch) works only on a handful of Linux distros.
-- [`freshfetch`](https://github.com/K4rakara/freshfetch) same as the above.
-- [`macchina`](https://github.com/Macchina-CLI/macchina) lacks the Neofetch aesthetic.
-- [`afetch`](https://github.com/13-CF/afetch) it'awesome, but not what I'm looking for.
+-   [`paleofetch`](https://github.com/ss7m/paleofetch) only supports Arch (and it's no longer maintained).
+-   [`fastfetch`](https://github.com/LinusDierheimer/fastfetch) works only on a handful of Linux distros.
+-   [`freshfetch`](https://github.com/K4rakara/freshfetch) same as the above.
+-   [`macchina`](https://github.com/Macchina-CLI/macchina) lacks the Neofetch aesthetic.
+-   [`afetch`](https://github.com/13-CF/afetch) it'awesome, but not what I'm looking for.
 
 Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as its name suggests) is **macOS-only**.
 
@@ -67,8 +67,8 @@ The Foo segment has a name of "Foo" and a descriptor function `foo`. But, how do
 
 All available segment descriptors are declared inside `include/descriptors.hpp` and defined inside `src/descriptors.cpp`, a segment descriptor follows this rules:
 
-- A `void*` return type.
-- A `string& out` parameter.
+-   A `void*` return type.
+-   A `string& out` parameter.
 
 For example:
 
@@ -81,7 +81,7 @@ void* foo(string& out)
 }
 ```
 
-See how the output of the segment descriptor gets assigned to `out` and not returned instead, this is because Macfetch takes advantage of C++'s threads. All segments create a thread inside the `segment_threads`, and they all redirect their outputs to their corresponding indexes from the `segment_outputs` array (both under `src/utils.cpp`, inside the `display` method). 
+See how the output of the segment descriptor gets assigned to `out` and not returned instead, this is because Macfetch takes advantage of C++'s threads. All segments create a thread inside the `segment_threads`, and they all redirect their outputs to their corresponding indexes from the `segment_outputs` array (both under `src/utils.cpp`, inside the `display` method).
 
 As mentioned, segments may also not have a defined name (which is the case for color blocks). For this case, you just declare a segment and only provide a descriptor:
 
