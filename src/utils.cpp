@@ -5,12 +5,12 @@
 #include <regex>
 #include <array>
 
+#include "../include/constants.hpp"
 #include "../include/colors.hpp"
 #include "../include/utils.hpp"
 
 using std::array;
 using std::cout;
-using std::endl;
 using std::ref;
 using std::string;
 using std::thread;
@@ -45,14 +45,14 @@ void cache(string name, string value)
 void display(string username, string hostname, vector<string> ascii, vector<segment> segments)
 {
     int ascii_size = ascii.size();
-    int segments_size = segments.size() + 2;
+    int segments_size = segments.size() + RESERVED_LINES;
 
     int rows = ascii_size > segments_size ? ascii_size : segments_size;
 
-    thread segment_threads[segments_size - 2];
-    string segment_outputs[segments_size - 2];
+    thread segment_threads[segments_size - RESERVED_LINES];
+    string segment_outputs[segments_size - RESERVED_LINES];
 
-    for (int i = 0; i < segments_size - 2; i++)
+    for (int i = 0; i < segments_size - RESERVED_LINES; i++)
     {
         segment_threads[i] = thread(segments.at(i).descriptor, ref(segment_outputs[i]));
     }
@@ -64,7 +64,7 @@ void display(string username, string hostname, vector<string> ascii, vector<segm
         line += i < ascii_size ? ascii.at(i) : ascii.at(ascii_size - 1);
         line += "   ";
 
-        switch (i - 2)
+        switch (i - RESERVED_LINES)
         {
         case -2:
             line += BOLD FG2 + username + DEFAULT "@" BOLD FG2 + hostname + DEFAULT;
@@ -75,17 +75,17 @@ void display(string username, string hostname, vector<string> ascii, vector<segm
         default:
             if (i < segments_size)
             {
-                segment_threads[i - 2].join();
+                segment_threads[i - RESERVED_LINES].join();
 
-                string name = segments.at(i - 2).name;
-                string output = segment_outputs[i - 2];
+                string name = segments.at(i - RESERVED_LINES).name;
+                string output = segment_outputs[i - RESERVED_LINES];
 
                 line += (!name.empty() ? BOLD FG3 + name + DEFAULT + ": " : "") + output;
             }
             break;
         }
 
-        cout << line << endl;
+        cout << line << "\n";
     }
 
     cout << (rows == segments_size ? "\n" : "");
