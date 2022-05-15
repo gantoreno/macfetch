@@ -16,7 +16,7 @@ _"But seriously, why? Why another Neofetch alternative?"_ I hear you ask, and th
 -   [`fastfetch`](https://github.com/LinusDierheimer/fastfetch) works only on a handful of Linux distros.
 -   [`freshfetch`](https://github.com/K4rakara/freshfetch) same as the above.
 -   [`macchina`](https://github.com/Macchina-CLI/macchina) lacks the Neofetch aesthetic.
--   [`afetch`](https://github.com/13-CF/afetch) it'awesome, but not what I'm looking for.
+-   [`afetch`](https://github.com/13-CF/afetch) is awesome, but not what I'm looking for.
 
 Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as its name suggests) is **macOS-only**.
 
