@@ -15,4 +15,4 @@ add_executable(
   src/segments.cpp
 )
 
-install(TARGETS macfetch)
+install(TARGETS macfetch DESTINATION bin)
