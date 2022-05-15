@@ -5,24 +5,39 @@
 #include "../include/ascii.hpp"
 #include "../include/utils.hpp"
 #include "../include/segments.hpp"
+#include "../include/constants.hpp"
 #include "../include/descriptors.hpp"
 
 using std::cout;
 using std::endl;
 
+void help()
+{
+    cout << "Usage: macfetch [options]" << "\n"
+            << "    -h, --help           To echo this help message" << "\n"
+            << "    -v, --version        To see the version number" << "\n"
+            << "    -r, --recache        To remove all cached data" << "\n";
+}
+
 int main(int argc, char** argv)
 {
     if (argc > 1)
     {
-        if (strcmp(argv[1], "--recache") == 0)
+        if (strcmp(argv[1], "-r") == 0 || strcmp(argv[1], "--recache") == 0)
         {
             exec("rm -rf /Library/Caches/macfetch");
         }
-        else if (strcmp(argv[1], "--help") == 0)
+        else if (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0)
         {
-            cout << "Usage: macfetch [--recache | --help]" << endl;
+            cout << "Macfetch v" VERSION << endl;
 
-            return 1;
+            return 0;
+        }
+        else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
+        {
+            help();
+
+            return 0;
         }
     }
 
