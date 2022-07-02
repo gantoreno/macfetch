@@ -22,7 +22,22 @@ Yes, Linux is supported, and that's great, but it's about time for a macOS alter
 
 ## Installation
 
-To install Macfetch, build from source. Start by cloning the repo:
+You can either [install](https://github.com/gantoreno/macfetch#homebrew-installation) Macfetch via [Homebrew](https://brew.sh/), or you can [build from source](https://github.com/gantoreno/macfetch#build-from-source).
+
+### Homebrew Installation
+
+To install Macfetch via Homebrew, just tap the repository, and install like so:
+
+```sh
+$ brew tap gantoreno/macfetch
+$ brew install macfetch
+```
+
+And voilà! Macfetch should now be installed under `/usr/local/Cellar/macfetch/<version>`.
+
+### Build From Source
+
+To build from source. Start by cloning the repo:
 
 ```sh
 $ git clone https://github.com/gantoreno/macfetch.git
