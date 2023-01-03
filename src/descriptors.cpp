@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -67,7 +68,9 @@ void* packages(string& out)
         out = "Unknown";
     }
 
-    out = exec("ls /usr/local/Cellar/* | grep ':' | wc -l | xargs") + " (brew)";
+   
+
+    out = exec("ls /usr/local/Cellar/* 2> /dev/null | grep ':' | wc -l | xargs || echo '0'") + " (brew)";
 
     return NULL;
 }
