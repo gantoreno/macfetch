@@ -13,6 +13,7 @@ void* packages(string& out);
 void* shell(string& out);
 void* resolution(string& out);
 void* de(string& out);
+void* wm(string& out);
 void* terminal(string& out);
 void* cpu(string& out);
 void* gpu(string& out);

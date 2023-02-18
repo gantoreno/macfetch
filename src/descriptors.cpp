@@ -68,9 +68,7 @@ void* packages(string& out)
         out = "Unknown";
     }
 
-   
-
-    out = exec("ls /usr/local/Cellar/* 2> /dev/null | grep ':' | wc -l | xargs || echo '0'") + " (brew)";
+    out = exec("ls /opt/homebrew/Cellar/* 2> /dev/null | grep ':' | wc -l | xargs || echo '0'") + " (brew)";
 
     return NULL;
 }
@@ -93,6 +91,30 @@ void* de(string& out)
 {
     out = "Aqua";
 
+    return NULL;
+}
+
+void* wm(string& out)
+{
+     string info = exec("ps -e | grep -o \
+                    -e \"[S]pectacle\" \
+                    -e \"[A]methyst\" \
+                    -e \"[k]wm\" \
+                    -e \"[c]hun[k]wm\" \
+                    -e \"[y]abai\" \
+                    -e \"[R]ectangle\"");
+
+    if (info.empty())
+    {
+        info = "Quartz Compositor";
+    }
+    else
+    {
+        info = info.substr(0, info.length() / 2);
+    }
+
+    out = info;
+    
     return NULL;
 }
 
@@ -145,20 +167,15 @@ void* gpu(string& out)
 
 void* memory(string& out)
 {
-    string cached = exec("cat 2> /dev/null /Library/Caches/macfetch/memory");
 
-    if (cached.empty())
-    {
-        string info = exec("system_profiler SPHardwareDataType /dev/null | grep 'Memory:' | awk '{print $2\"\"$3}'");
+    int total_memory = stoi(exec("sysctl -n hw.pagesize"));
 
-        cache("memory", info);
+    float memory_free_percentage = stof(exec("memory_pressure | grep 'percentage' | awk '{print $5}' | sed -r 's/[^0-9]*//g' || echo 0"));
+    float memory_used_percentage = 100 - memory_free_percentage;
 
-        out = info;
-    }
-    else
-    {
-        out = cached;
-    }
+    int used_memory = total_memory * (memory_used_percentage / 100);
+
+    out = to_string(used_memory) + "MiB / " + to_string(total_memory) + "MiB";
 
     return NULL;
 }
