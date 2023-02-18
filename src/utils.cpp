@@ -4,6 +4,7 @@
 #include <string>
 #include <regex>
 #include <array>
+#include <mutex>
 
 #include "../include/constants.hpp"
 #include "../include/colors.hpp"
@@ -16,9 +17,14 @@ using std::string;
 using std::thread;
 using std::unique_ptr;
 using std::vector;
+using std::mutex;
+
+mutex m;
 
 string exec(const char* cmd)
 {
+    m.lock();
+
     string result;
     array<char, 128> buffer;
     unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
@@ -32,6 +38,8 @@ string exec(const char* cmd)
     {
         result += regex_replace(buffer.data(), std::regex("\n"), "");
     }
+
+    m.unlock();
 
     return result;
 }
