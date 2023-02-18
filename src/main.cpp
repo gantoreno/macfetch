@@ -61,13 +61,16 @@ int main(int argc, char** argv)
         segment("Shell", shell),
         segment("Resolution", resolution),
         segment("DE", de),
+        segment("WM", wm),
         segment("Terminal", terminal),
         segment("CPU", cpu),
         segment("GPU", gpu),
+        segment("Battery", battery),
         segment("Memory", memory),
         segment(empty),
         segment(dark_colors),
         segment(bright_colors),
+        segment(empty),
     };
 
     display(username, hostname, ascii, segments);
