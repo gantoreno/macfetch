@@ -6,9 +6,9 @@
 #include "../include/utils.hpp"
 #include "../include/descriptors.hpp"
 
-using std::vector;
 using std::string;
 using std::to_string;
+using std::vector;
 
 void* os(string& out)
 {
@@ -96,7 +96,7 @@ void* de(string& out)
 
 void* wm(string& out)
 {
-     string info = exec("ps -e | grep -o \
+    string info = exec("ps -e | grep -o \
                     -e \"[S]pectacle\" \
                     -e \"[A]methyst\" \
                     -e \"[k]wm\" \
@@ -116,7 +116,7 @@ void* wm(string& out)
     set_cache("info", info);
 
     out = info;
-    
+
     return NULL;
 }
 

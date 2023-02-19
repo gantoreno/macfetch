@@ -12,12 +12,12 @@
 
 using std::array;
 using std::cout;
+using std::mutex;
 using std::ref;
 using std::string;
 using std::thread;
 using std::unique_ptr;
 using std::vector;
-using std::mutex;
 
 mutex m;
 
@@ -48,7 +48,7 @@ string get_cache(string name)
 {
     string path = "cat 2> /dev/null /Library/Caches/macfetch/" + name;
     string cached = exec(path.c_str());
-    
+
     return cached;
 }
 

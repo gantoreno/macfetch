@@ -13,10 +13,14 @@ using std::endl;
 
 void help()
 {
-    cout << "Usage: macfetch [options]" << "\n"
-            << "    -h, --help           To echo this help message" << "\n"
-            << "    -v, --version        To see the version number" << "\n"
-            << "    -r, --recache        To remove all cached data" << "\n";
+    cout << "Usage: macfetch [options]"
+         << "\n"
+         << "    -h, --help           To echo this help message"
+         << "\n"
+         << "    -v, --version        To see the version number"
+         << "\n"
+         << "    -r, --recache        To remove all cached data"
+         << "\n";
 }
 
 int main(int argc, char** argv)
