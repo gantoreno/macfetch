@@ -44,10 +44,25 @@ string exec(const char* cmd)
     return result;
 }
 
-void cache(string name, string value)
+string get_cache(string name)
+{
+    string path = "cat 2> /dev/null /Library/Caches/macfetch/" + name;
+    string cached = exec(path.c_str());
+    
+    return cached;
+}
+
+string set_cache(string name, string value)
 {
     exec("mkdir -p /Library/Caches/macfetch");
     exec(("echo '" + value + "' > /Library/Caches/macfetch/" + name).c_str());
+
+    return value;
+}
+
+void clear_cache()
+{
+    exec("rm -rf /Library/Caches/macfetch");
 }
 
 void display(string username, string hostname, vector<string> ascii, vector<segment> segments)

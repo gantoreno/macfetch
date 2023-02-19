@@ -11,7 +11,11 @@ using std::string;
 
 string exec(const char* cmd);
 
-void cache(string name, string value);
+string get_cache(string name);
+string set_cache(string name, string value);
+
+void clear_cache();
+
 void display(string username, string hostname, vector<string> ascii, vector<segment> segments);
 
 #endif

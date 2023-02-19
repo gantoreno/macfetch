@@ -113,6 +113,8 @@ void* wm(string& out)
         info = info.substr(0, info.length() / 2);
     }
 
+    set_cache("info", info);
+
     out = info;
     
     return NULL;
@@ -127,13 +129,13 @@ void* terminal(string& out)
 
 void* cpu(string& out)
 {
-    string cached = exec("cat 2> /dev/null /Library/Caches/macfetch/cpu");
+    string cached = get_cache("cpu");
 
     if (cached.empty())
     {
         string info = exec("sysctl -n machdep.cpu.brand_string");
 
-        cache("cpu", info);
+        set_cache("cpu", info);
 
         out = info;
     }
@@ -147,13 +149,13 @@ void* cpu(string& out)
 
 void* gpu(string& out)
 {
-    string cached = exec("cat 2> /dev/null /Library/Caches/macfetch/gpu");
+    string cached = get_cache("gpu");
 
     if (cached.empty())
     {
         string info = exec("system_profiler SPDisplaysDataType 2> /dev/null | awk -F': ' '/^\\ *Chipset Model:/ {printf $2}'");
 
-        cache("gpu", info);
+        set_cache("gpu", info);
 
         out = info;
     }
@@ -167,7 +169,6 @@ void* gpu(string& out)
 
 void* memory(string& out)
 {
-
     int total_memory = stoi(exec("sysctl -n hw.pagesize"));
 
     float memory_free_percentage = stof(exec("memory_pressure | grep 'percentage' | awk '{print $5}' | sed -r 's/[^0-9]*//g' || echo 0"));

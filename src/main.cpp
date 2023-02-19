@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     {
         if (strcmp(argv[1], "-r") == 0 || strcmp(argv[1], "--recache") == 0)
         {
-            exec("rm -rf /Library/Caches/macfetch");
+            clear_cache();
         }
         else if (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0)
         {
