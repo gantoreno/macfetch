@@ -61,12 +61,12 @@ $ cargo build --release # for the optimized release target
 
 Your binary should be available under `target/x86_64-apple-darwin/`and withing the folder of the build target you chose (either `debug` or `release`).
 
-# Performance Notes
+## Performance Notes
 
 Macfetch, although _blazingly fast_, is not perfect. One of the segments in particular represents a huge drawback in performance, at least for the first cold run of the program – the GPU segment. This is because, as of right now, I haven't found better & optimal way of querying for the GPU vendor & name other than spawning a shell process and reading from `SPDisplaysDataType` with `system_profiler`, which is painfully slow.
 
 For now, the workaround is to cache that value into `/Library/Caches/macfetc` and just run the command for the first run. After that, the segment should only read for the cached value, having a significan improvement in execution time.
 
-# License
+## License
 
 Licensed under the [MIT](https://opensource.org/licenses/MIT) license.
