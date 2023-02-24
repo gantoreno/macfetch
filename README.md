@@ -22,7 +22,7 @@ _"But seriously, why? Why another Neofetch alternative?"_ I hear you ask, and th
 - [`macchina`](https://github.com/Macchina-CLI/macchina) lacks the Neofetch aesthetic.
 - [`afetch`](https://github.com/13-CF/afetch) is awesome, but not what I'm looking for out of the box.
 
-Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as its name suggests) is **macOS-only**, and not only that, **is 95% faster**.
+Yes, Linux is supported, and that's great, but it's about time for a macOS alternative to come out, and that's why Macfetch (as its name suggests) is **macOS-only**, and not only that, **it's 95% faster**.
 
 ## Installation
 
