@@ -1,14 +1,1 @@
-# macOS
-.DS_Store
-
-# CMake files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-install_manifest.txt
-
-# Makefile - gets generated at CMake build
-Makefile
-
-# Binaries
-out/
+/target

@@ -1,0 +1,20 @@
+[package]
+name = "macfetch"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+colored = "2.0.0"
+users = "0.11.0"
+sys-info = "0.9.1"
+sysctl = "0.4.6"
+os-version = "0.2.0"
+libc = "0.2.131"
+duration-string = "0.2.0"
+humantime = "2.1.0"
+base64 = "0.21.0"
+battery = "0.7.8"
+system-info = "0.1.2"
+core-graphics = "0.22.3"
