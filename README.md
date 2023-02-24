@@ -9,6 +9,9 @@
 
 A macOS [Neofetch](https://github.com/dylanaraps/neofetch) alternative, previously written in [C++](https://en.wikipedia.org/wiki/C++), now written in [Rust](https://www.rust-lang.org/).
 
+> **Note**
+> To view the previous files, visit the [`legacy`](https://github.com/gantoreno/macfetch/tree/legacy) branch, which contains the old C++ files for this project.
+
 ## Why?
 
 _"But seriously, why? Why another Neofetch alternative?"_ I hear you ask, and the answer is pretty simple. There are multiple Neofetch rewrites out there, most of them probably faster than Macfetch, but besides doing absolutely the same as Neofetch (but much faster), they all share something in common, **macOS is not supported**.
