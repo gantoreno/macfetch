@@ -1,6 +1,6 @@
 <div align="center">
-  <img src=".github/screenshot-light.png#gh-light-mode-only" />
-  <img src=".github/screenshot-dark.png#gh-dark-mode-only" />
+  <img src=".github/screenshot-light.png#gh-light-mode-only" width="600" />
+  <img src=".github/screenshot-dark.png#gh-dark-mode-only" width="600" />
 </div>
 
 # Macfetch
