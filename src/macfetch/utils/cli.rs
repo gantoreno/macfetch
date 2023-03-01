@@ -1,6 +1,6 @@
 use std::{env, process::exit};
 
-use crate::macfetch::utils::constants;
+use crate::macfetch::constants;
 
 pub fn handle_cli_args() {
     let args: Vec<String> = env::args().collect();
