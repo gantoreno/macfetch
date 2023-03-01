@@ -1,8 +1,9 @@
+use cached::proc_macro::cached;
 use std::borrow::Borrow;
-
 use sys_info::hostname;
 use users::{Users, UsersCache};
 
+#[cached]
 pub fn get_host_info() -> (String, String) {
     let cache = UsersCache::new();
     let uid = cache.get_current_uid();
