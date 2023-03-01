@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The GPU segment finally has a non-shell spawning implementation (huge thanks to [@k-ronny](https://github.com/k-ronny)'s suggestion on #1) and started using the [iron-oxide](https://docs.rs/iron-oxide/latest/iron_oxide/) crate.
 
-## [2.0.0] - 2023-02-24
+## [2.1.0] - 2023-03-01
 
 ### Changed
 
