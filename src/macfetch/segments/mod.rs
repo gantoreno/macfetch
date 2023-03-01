@@ -1,15 +1,16 @@
+mod constants;
+
 use battery::Manager;
 use colored::{ColoredString, Colorize};
 use core_graphics::display::{CGDisplay, CGMainDisplayID};
+use iron_oxide::CGDirectDisplayCopyCurrentMetalDevice;
 use libc::timeval;
 use os_version::MacOS;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use std::{env, fs};
 use sysctl::Sysctl;
 
-mod constants;
-
-use crate::macfetch::utils::{command, ctl, host};
+use crate::macfetch::utils::{ctl, host};
 
 pub fn machine() -> ColoredString {
     let (username, hostname) = host::get_host_info();
@@ -135,7 +136,9 @@ pub fn cpu() -> ColoredString {
 }
 
 pub fn gpu() -> ColoredString {
-    let gpu = command::get_command_output_cached("system_profiler SPDisplaysDataType 2> /dev/null | awk -F': ' '/^\\ *Chipset Model:/ {printf $2}'");
+    let display = unsafe { CGDisplay::new(CGMainDisplayID()) };
+    let mtl_device = unsafe { CGDirectDisplayCopyCurrentMetalDevice(display.id) };
+    let gpu = unsafe { mtl_device.get_name().to_string() };
 
     return titled_segment("GPU", gpu);
 }
