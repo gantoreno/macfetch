@@ -12,6 +12,8 @@ use sysctl::Sysctl;
 
 use crate::macfetch::utils::{ctl, host};
 
+use super::utils::cache;
+
 pub fn machine() -> ColoredString {
     let (username, hostname) = host::get_host_info();
 
@@ -128,17 +130,21 @@ pub fn terminal() -> ColoredString {
 }
 
 pub fn cpu() -> ColoredString {
-    let cpu = ctl::get_ctl_info("machdep.cpu.brand_string")
-        .value_string()
-        .unwrap();
+    let cpu = cache::fallback("cpu", || {
+        return ctl::get_ctl_info("machdep.cpu.brand_string")
+            .value_string()
+            .unwrap();
+    });
 
     return titled_segment("CPU", cpu);
 }
 
 pub fn gpu() -> ColoredString {
-    let display = unsafe { CGDisplay::new(CGMainDisplayID()) };
-    let mtl_device = unsafe { CGDirectDisplayCopyCurrentMetalDevice(display.id) };
-    let gpu = unsafe { mtl_device.get_name().to_string() };
+    let gpu = cache::fallback("gpu", || {
+        let display = unsafe { CGDisplay::new(CGMainDisplayID()) };
+        let mtl_device = unsafe { CGDirectDisplayCopyCurrentMetalDevice(display.id) };
+        return unsafe { mtl_device.get_name().to_string() };
+    });
 
     return titled_segment("GPU", gpu);
 }
