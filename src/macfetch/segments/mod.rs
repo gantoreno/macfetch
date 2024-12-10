@@ -124,9 +124,17 @@ pub fn wm() -> ColoredString {
 }
 
 pub fn terminal() -> ColoredString {
-    let terminal = env::var("TERM_PROGRAM").unwrap();
-
-    return titled_segment("Terminal", terminal);
+    // only works for some terminals (Apple, iTerm2)
+    if let Ok(terminal) = env::var("TERM_PROGRAM") {
+        return titled_segment("Terminal", terminal);
+    }
+    if let Ok(_) = env::var("ALACRITTY_WINDOW_ID") {
+        return titled_segment("Terminal", "Alacritty".to_string());
+    }
+    if let Ok(_) = env::var("KITTY_WINDOW_ID") {
+        return titled_segment("Terminal", "kitty".to_string());
+    }
+    return titled_segment("Terminal", "unknown".to_string());
 }
 
 pub fn cpu() -> ColoredString {
