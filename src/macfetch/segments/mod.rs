@@ -28,13 +28,17 @@ pub fn separator() -> ColoredString {
 }
 
 pub fn os() -> ColoredString {
-    let os = MacOS::detect().ok().unwrap().to_string();
+    let os = MacOS::detect()
+        .map(|version| version.to_string())
+        .unwrap_or_else(|_| "macOS".to_string());
 
     return titled_segment("OS", os);
 }
 
 pub fn host() -> ColoredString {
-    let host = ctl::get_ctl_info("hw.model").value_string().ok().unwrap();
+    let host = ctl::get_ctl_info("hw.model")
+        .value_string()
+        .unwrap_or_else(|_| "Unknown".to_string());
 
     return titled_segment("Host", host);
 }
@@ -42,39 +46,41 @@ pub fn host() -> ColoredString {
 pub fn kernel() -> ColoredString {
     let kernel = ctl::get_ctl_info("kern.osrelease")
         .value_string()
-        .ok()
-        .unwrap();
+        .unwrap_or_else(|_| "Unknown".to_string());
 
     return titled_segment("Kernel", kernel);
 }
 
 pub fn uptime() -> ColoredString {
-    let binding = ctl::get_ctl_info("kern.boottime")
-        .value_as::<timeval>()
-        .unwrap();
-    let time = binding.as_ref();
+    let uptime = match ctl::get_ctl_info("kern.boottime").value_as::<timeval>() {
+        Ok(binding) => {
+            let time = binding.as_ref();
+            let duration = Duration::new(time.tv_sec as u64, (time.tv_usec * 1000) as u32);
+            let bootup_timestamp = UNIX_EPOCH + duration;
+            let seconds_since_boot = match SystemTime::now().duration_since(bootup_timestamp) {
+                Ok(data) => data.as_secs(),
+                Err(_) => 0,
+            };
 
-    let duration = Duration::new(time.tv_sec as u64, (time.tv_usec * 1000) as u32);
-    let bootup_timestamp = UNIX_EPOCH + duration;
-    let seconds_since_boot = match SystemTime::now().duration_since(bootup_timestamp) {
-        Ok(data) => data.as_secs(),
-        Err(_) => 0,
+            let mut formatted = String::new();
+
+            let dd = seconds_since_boot / 60 / 60 / 24;
+            let dd_suffix = if dd == 1 { "day" } else { "days" };
+
+            let hh = seconds_since_boot / 60 / 60 % 24;
+            let hh_suffix = if hh == 1 { "hour" } else { "hours" };
+
+            let mm = seconds_since_boot / 60 % 60;
+            let mm_suffix = if mm == 1 { "minute" } else { "minutes" };
+
+            formatted.push_str(format!("{} {}, ", dd, dd_suffix).as_str());
+            formatted.push_str(format!("{} {}, ", hh, hh_suffix).as_str());
+            formatted.push_str(format!("{} {}", mm, mm_suffix).as_str());
+
+            formatted
+        }
+        Err(_) => "Unavailable".to_string(),
     };
-
-    let mut uptime = String::from("");
-
-    let dd = seconds_since_boot / 60 / 60 / 24;
-    let dd_suffix = if dd == 1 { "day" } else { "days" };
-
-    let hh = seconds_since_boot / 60 / 60 % 24;
-    let hh_suffix = if hh == 1 { "hour" } else { "hours" };
-
-    let mm = seconds_since_boot / 60 % 60;
-    let mm_suffix = if mm == 1 { "minute" } else { "minutes" };
-
-    uptime.push_str(String::from(format!("{} {}, ", dd, dd_suffix)).as_str());
-    uptime.push_str(String::from(format!("{} {}, ", hh, hh_suffix)).as_str());
-    uptime.push_str(String::from(format!("{} {}", mm, mm_suffix)).as_str());
 
     return titled_segment("Uptime", uptime);
 }
@@ -95,7 +101,7 @@ pub fn packages() -> ColoredString {
 }
 
 pub fn shell() -> ColoredString {
-    let shell = env::var("SHELL").unwrap();
+    let shell = env::var("SHELL").unwrap_or_else(|_| "unknown".to_string());
 
     return titled_segment("Shell", shell);
 }
@@ -141,7 +147,7 @@ pub fn cpu() -> ColoredString {
     let cpu = cache::fallback("cpu", || {
         return ctl::get_ctl_info("machdep.cpu.brand_string")
             .value_string()
-            .unwrap();
+            .unwrap_or_else(|_| "Unknown CPU".to_string());
     });
 
     return titled_segment("CPU", cpu);
@@ -158,17 +164,23 @@ pub fn gpu() -> ColoredString {
 }
 
 pub fn battery() -> ColoredString {
-    let manager = Manager::new().unwrap();
+    let battery_info = (|| -> Option<String> {
+        let manager = Manager::new().ok()?;
+        let mut batteries = manager.batteries().ok()?;
 
-    let mut batteries = manager.batteries().unwrap();
+        while let Some(battery_result) = batteries.next() {
+            let main_battery = battery_result.ok()?;
+            let main_battery_charge = main_battery.state_of_charge().value;
+            let main_battery_percentage = main_battery_charge * 100.0;
 
-    let main_battery = batteries.next().unwrap().unwrap();
-    let main_battery_charge = main_battery.state_of_charge().value;
-    let main_battery_percentage = main_battery_charge * 100.0;
+            return Some(format!("{}%", main_battery_percentage.round()));
+        }
 
-    let battery = String::from(format!("{}%", main_battery_percentage.round()));
+        None
+    })()
+    .unwrap_or_else(|| "Unavailable".to_string());
 
-    return titled_segment("Battery", battery);
+    return titled_segment("Battery", battery_info);
 }
 
 pub fn memory() -> ColoredString {
