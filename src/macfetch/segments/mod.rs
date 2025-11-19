@@ -187,9 +187,10 @@ pub fn memory() -> ColoredString {
     let system_memory_info = system_info::mem::SystemMemory::new();
 
     let total = system_memory_info.total / 1024 / 1024;
-    let used = system_memory_info.avail / 1024 / 1024;
+    let available = system_memory_info.avail / 1024 / 1024;
+    let used = total - available;
 
-    let memory = format!("{}MiB / {}MiB", used, total);
+    let memory = format!("{} MiB / {} MiB", used, total);
 
     return titled_segment("Memory", memory);
 }
