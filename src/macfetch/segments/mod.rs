@@ -177,20 +177,36 @@ pub fn battery() -> ColoredString {
         }
 
         None
-    })()
-    .unwrap_or_else(|| "Unavailable".to_string());
+    })();
 
-    return titled_segment("Battery", battery_info);
+    if battery_info.is_some() {
+        return titled_segment(
+            "Power Source",
+            format!("Battery: {}", battery_info.unwrap_or("Unknown".to_string())),
+        );
+    }
+
+    return titled_segment("Power Source", "Plugged In".to_string());
 }
 
 pub fn memory() -> ColoredString {
     let system_memory_info = system_info::mem::SystemMemory::new();
 
-    let total = system_memory_info.total / 1024 / 1024;
-    let available = system_memory_info.avail / 1024 / 1024;
-    let used = total - available;
+    let total_bytes = system_memory_info.total as f64;
+    let avail_bytes = system_memory_info.avail as f64;
+    let used_bytes = total_bytes - avail_bytes;
 
-    let memory = format!("{} MiB / {} MiB", used, total);
+    let to_gib = 1024.00_f64 * 1024.00_f64 * 1024.00_f64;
+    let total_gib = total_bytes / to_gib;
+    let used_gib = used_bytes / to_gib;
+
+    let percentage = (used_bytes / total_bytes) * 100.0;
+    let memory = format!(
+        "{:.2} GiB / {:.2} GiB ({}%)",
+        used_gib,
+        total_gib,
+        percentage.round()
+    );
 
     return titled_segment("Memory", memory);
 }
