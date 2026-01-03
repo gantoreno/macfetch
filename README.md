@@ -33,8 +33,8 @@ You can either [install](https://github.com/gantoreno/macfetch#homebrew-installa
 To install Macfetch via Homebrew, just tap the repository, and install like so:
 
 ```sh
-$ brew tap gantoreno/macfetch
-$ brew install macfetch
+brew tap gantoreno/macfetch
+brew install macfetch
 ```
 
 And voilà! Macfetch should now be installed under `/usr/local/Cellar/macfetch/<version>`.
@@ -44,22 +44,22 @@ And voilà! Macfetch should now be installed under `/usr/local/Cellar/macfetch/<
 To build from source. Start by cloning the repo:
 
 ```sh
-$ git clone https://github.com/gantoreno/macfetch.git
-$ cd macfetch
+git clone https://github.com/gantoreno/macfetch.git
+cd macfetch
 ```
 
 And simply run with `cargo`:
 
 ```sh
-$ cargo run # for the debug target
-$ cargo run --release # for the optimized release target
+cargo run # for the debug target
+cargo run --release # for the optimized release target
 ```
 
 To build, same thing:
 
 ```sh
-$ cargo build # for the debug target
-$ cargo build --release # for the optimized release target
+cargo build # for the debug target
+cargo build --release # for the optimized release target
 ```
 
 Your binary should be available under `target/x86_64-apple-darwin/`and withing the folder of the build target you chose (either `debug` or `release`).
