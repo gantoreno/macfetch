@@ -5,7 +5,7 @@
 
 # Macfetch
 
-![https://img.shields.io/github/issues/gantoreno/macfetch](https://img.shields.io/github/issues/gantoreno/macfetch) ![https://img.shields.io/github/forks/gantoreno/macfetch](https://img.shields.io/github/forks/gantoreno/macfetch) ![https://img.shields.io/github/stars/gantoreno/macfetch](https://img.shields.io/github/stars/gantoreno/macfetch) ![https://img.shields.io/github/license/gantoreno/macfetch](https://img.shields.io/github/license/gantoreno/macfetch)
+![https://img.shields.io/github/issues/gantoreno/macfetch](https://img.shields.io/github/issues/gantoreno/macfetch) ![GitHub branch check runs](https://img.shields.io/github/check-runs/gantoreno/macfetch/main) ![https://img.shields.io/github/license/gantoreno/macfetch](https://img.shields.io/github/license/gantoreno/macfetch) ![https://img.shields.io/github/forks/gantoreno/macfetch](https://img.shields.io/github/forks/gantoreno/macfetch) ![https://img.shields.io/github/stars/gantoreno/macfetch](https://img.shields.io/github/stars/gantoreno/macfetch)
 
 A macOS [Neofetch](https://github.com/dylanaraps/neofetch) alternative, previously written in [C++](https://en.wikipedia.org/wiki/C++), now written in [Rust](https://www.rust-lang.org/).
 
