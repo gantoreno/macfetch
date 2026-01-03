@@ -32,45 +32,10 @@ jobs:
           tar -czvf macfetch-${{ github.ref_name }}.tar.gz macfetch
           mv macfetch-${{ github.ref_name }}.tar.gz ../../
 
-      - name: Calculate SHA256
-        id: sha
-        run: echo "sha256=$(shasum -a 256 macfetch-${{ github.ref_name }}.tar.gz | awk '{print $1}')" >> $GITHUB_OUTPUT
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           name: "[${{ github.ref_name }}] - ${{ steps.date.outputs.date }}"
-          draft: false
+          draft: true
           generate_release_notes: true
           files: macfetch-${{ github.ref_name }}.tar.gz
-
-      - name: Update Homebrew Tap
-        env:
-          TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
-        run: |
-          git clone https://x-access-token:${TAP_GITHUB_TOKEN}@github.com/gantoreno/homebrew-macfetch.git
-          cd homebrew-macfetch
-
-          cat > macfetch.rb << 'EOF'
-          class Macfetch < Formula
-            desc "A macOS Neofetch alternative written in Rust"
-            homepage "https://github.com/gantoreno/macfetch"
-            url "https://github.com/gantoreno/macfetch/releases/download/${{ github.ref_name }}/macfetch-${{ github.ref_name }}.tar.gz"
-            sha256 "${{ steps.sha.outputs.sha256 }}"
-            license "MIT"
-
-            def install
-              bin.install "macfetch"
-            end
-
-            test do
-              system "#{bin}/macfetch", "--version"
-            end
-          end
-          EOF
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add macfetch.rb
-          git commit -m "chore(release): ${{ github.ref_name }}"
-          git push

@@ -1,0 +1,50 @@
+name: Update Homebrew Tap
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-tap:
+    name: Update Homebrew Formula
+    runs-on: macos-latest
+    steps:
+      - name: Download release tarball
+        run: |
+          curl -L -o macfetch.tar.gz \
+            "https://github.com/gantoreno/macfetch/releases/download/${{ github.event.release.tag_name }}/macfetch-${{ github.event.release.tag_name }}.tar.gz"
+
+      - name: Calculate SHA256
+        id: sha
+        run: echo "sha256=$(shasum -a 256 macfetch.tar.gz | awk '{print $1}')" >> $GITHUB_OUTPUT
+
+      - name: Update Homebrew Tap
+        env:
+          TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
+        run: |
+          git clone https://x-access-token:${TAP_GITHUB_TOKEN}@github.com/gantoreno/homebrew-macfetch.git
+          cd homebrew-macfetch
+
+          cat > macfetch.rb << EOF
+          class Macfetch < Formula
+            desc "A macOS Neofetch alternative written in Rust"
+            homepage "https://github.com/gantoreno/macfetch"
+            url "https://github.com/gantoreno/macfetch/releases/download/${{ github.event.release.tag_name }}/macfetch-${{ github.event.release.tag_name }}.tar.gz"
+            sha256 "${{ steps.sha.outputs.sha256 }}"
+            license "MIT"
+
+            def install
+              bin.install "macfetch"
+            end
+
+            test do
+              system "#{bin}/macfetch", "--version"
+            end
+          end
+          EOF
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add macfetch.rb
+          git commit -m "chore(release): ${{ github.event.release.tag_name }}"
+          git push
