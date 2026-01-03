@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-upload:
+    name: Build and Upload
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Create tarball
+        run: |
+          cd target/release
+          tar -czvf macfetch-${{ github.ref_name }}.tar.gz macfetch
+          mv macfetch-${{ github.ref_name }}.tar.gz ../../
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: macfetch-${{ github.ref_name }}.tar.gz

@@ -1,0 +1,36 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: "Added"
+      labels:
+        - feature
+        - enhancement
+    - title: "Changed"
+      labels:
+        - change
+        - refactor
+    - title: "Deprecated"
+      labels:
+        - deprecated
+    - title: "Removed"
+      labels:
+        - removed
+    - title: "Fixed"
+      labels:
+        - fix
+        - bug
+    - title: "Security"
+      labels:
+        - security
+    - title: "Documentation"
+      labels:
+        - documentation
+    - title: "Maintenance"
+      labels:
+        - chore
+        - dependencies
+    - title: "Other Changes"
+      labels:
+        - "*"
