@@ -1,0 +1,21 @@
+name: Enforce Branch Policy
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-source-branch:
+    name: Verify PR Source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR is from development
+        if: github.head_ref != 'development'
+        run: |
+          echo "❌ PRs to main must come from the development branch."
+          echo "   Source branch: ${{ github.head_ref }}"
+          echo "   Expected: development"
+          exit 1
+      - name: PR source is valid
+        if: github.head_ref == 'development'
+        run: echo "✅ PR is from development branch"
