@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-01-02
+
+### Fixed
+
+- Fixed battery segment panic on desktop Macs without batteries - now gracefully shows "Plugged In" instead of crashing (thanks to [@DonovanMontoya](https://github.com/DonovanMontoya) in #4).
+- Fixed incorrect memory calculation that was displaying available memory as used memory.
+- Fixed terminal name retrieval (thanks to [@paraversal](https://github.com/paraversal) in #3).
+
+### Changed
+
+- Memory display now shows usage in GiB with percentage (e.g., "8.50 GiB / 16.00 GiB (53%)").
+- Removed hardcoded x86_64 build target to allow native builds on Apple Silicon (M1/M2/M3) Macs.
+- Improved error handling across all segments (`os`, `host`, `kernel`, `uptime`, `shell`, `cpu`, `battery`) - now uses graceful fallbacks instead of panicking on missing data.
+- Added cached fallback utilities for better performance.
+- Updated dependencies to latest versions.
+
+### Housekeeping
+
+- Added `.DS_Store` to `.gitignore`.
+
 ## [2.1.0] - 2023-03-01
 
 ### Changed
