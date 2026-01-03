@@ -24,7 +24,8 @@ Macfetch is a macOS-only Neofetch alternative written in Rust. It displays syste
 - **`src/macfetch/mod.rs`**: Contains the `render()` function that pairs ASCII logo lines with segment output lines.
 - **`src/macfetch/segments/mod.rs`**: Individual segment functions (os, cpu, memory, etc.) that return `ColoredString`. Each segment fetches system data and formats it with `titled_segment()`.
 - **`src/macfetch/ascii/mod.rs`**: ASCII art generation with `generate_logo()` that returns colored logo lines.
-- **`src/macfetch/utils/`**: Helper modules for CLI handling, sysctl queries, host info, and caching.
+- **`src/macfetch/utils/`**: Helper modules for CLI handling, sysctl queries, host info, caching, and configuration.
+- **`src/macfetch/utils/config.rs`**: TOML configuration loading. Maps segment names to functions and builds the segment list from `~/.config/macfetch/config.toml`.
 
 ### Key Patterns
 
@@ -45,5 +46,6 @@ GitHub Actions runs on every push/PR to `main`:
 
 1. Create a new function in `src/macfetch/segments/mod.rs` returning `ColoredString`
 2. Use `titled_segment(name, value)` for consistent formatting
-3. Add the function to the segments vector in `main.rs`
-4. Export the function in the `use` statement in `main.rs`
+3. Register the segment in `src/macfetch/utils/config.rs`:
+   - Add it to `segment_registry()` HashMap
+   - Add it to `default_segments()` vector (if it should appear by default)

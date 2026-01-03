@@ -64,6 +64,51 @@ cargo build --release # for the optimized release target
 
 Your binary should be available under `target/x86_64-apple-darwin/`and withing the folder of the build target you chose (either `debug` or `release`).
 
+## Configuration
+
+Macfetch can be customized via a TOML configuration file located at `~/.config/macfetch/config.toml`.
+
+### Customizing Segments
+
+You can control which segments are displayed and in what order by specifying a `segments` list under `[general]`:
+
+```toml
+[general]
+segments = [
+    "machine",
+    "separator",
+    "os",
+    "cpu",
+    "memory",
+]
+```
+
+Only the segments listed will be rendered, in the order specified. If no config file exists, Macfetch uses the default segment order.
+
+### Available Segments
+
+| Segment | Description |
+|---------|-------------|
+| `machine` | Username and hostname |
+| `separator` | Dashed separator line |
+| `os` | macOS version |
+| `host` | Hardware model |
+| `kernel` | Kernel version |
+| `uptime` | System uptime |
+| `packages` | Homebrew package count |
+| `shell` | Current shell |
+| `resolution` | Display resolution |
+| `de` | Desktop environment (Aqua) |
+| `wm` | Window manager (Quartz Compositor) |
+| `terminal` | Terminal emulator |
+| `cpu` | Processor info |
+| `gpu` | Graphics card |
+| `battery` | Battery percentage |
+| `memory` | RAM usage |
+| `empty` | Blank line |
+| `dark_colors` | Dark color palette |
+| `light_colors` | Light color palette |
+
 ## License
 
 Licensed under the [MIT](https://opensource.org/licenses/MIT) license.
