@@ -33,6 +33,14 @@ Macfetch is a macOS-only Neofetch alternative written in Rust. It displays syste
 - The `cache` module provides `fallback()` for expensive operations (CPU/GPU lookups).
 - CLI args are handled via `clap` in `utils/cli.rs` with derive-based parsing.
 
+### CI Pipeline
+
+GitHub Actions runs on every push/PR to `main`:
+- `cargo check` - Compilation
+- `cargo test` - Unit tests
+- `cargo clippy -- -D warnings` - Linter (warnings fail the build)
+- `cargo fmt --check` - Formatting
+
 ### Adding New Segments
 
 1. Create a new function in `src/macfetch/segments/mod.rs` returning `ColoredString`
