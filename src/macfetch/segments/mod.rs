@@ -17,14 +17,14 @@ use super::utils::cache;
 pub fn machine() -> ColoredString {
     let (username, hostname) = host::get_host_info();
 
-    return format!("{}@{}", username.bold().green(), hostname.bold().green()).normal();
+    format!("{}@{}", username.bold().green(), hostname.bold().green()).normal()
 }
 
 pub fn separator() -> ColoredString {
     let (username, hostname) = host::get_host_info();
     let separator = String::from("-").repeat(username.len() + hostname.len() + 1);
 
-    return separator.normal();
+    separator.normal()
 }
 
 pub fn os() -> ColoredString {
@@ -32,37 +32,36 @@ pub fn os() -> ColoredString {
         .map(|version| version.to_string())
         .unwrap_or_else(|_| "macOS".to_string());
 
-    return titled_segment("OS", os);
+    titled_segment("OS", os)
 }
 
 pub fn host() -> ColoredString {
     let host = ctl::get_ctl_info("hw.model")
-        .value_string()
-        .unwrap_or_else(|_| "Unknown".to_string());
+        .and_then(|ctl| ctl.value_string().ok())
+        .unwrap_or_else(|| "Unknown".to_string());
 
-    return titled_segment("Host", host);
+    titled_segment("Host", host)
 }
 
 pub fn kernel() -> ColoredString {
     let kernel = ctl::get_ctl_info("kern.osrelease")
-        .value_string()
-        .unwrap_or_else(|_| "Unknown".to_string());
+        .and_then(|ctl| ctl.value_string().ok())
+        .unwrap_or_else(|| "Unknown".to_string());
 
-    return titled_segment("Kernel", kernel);
+    titled_segment("Kernel", kernel)
 }
 
 pub fn uptime() -> ColoredString {
-    let uptime = match ctl::get_ctl_info("kern.boottime").value_as::<timeval>() {
-        Ok(binding) => {
+    let uptime = ctl::get_ctl_info("kern.boottime")
+        .and_then(|ctl| ctl.value_as::<timeval>().ok())
+        .map(|binding| {
             let time = binding.as_ref();
             let duration = Duration::new(time.tv_sec as u64, (time.tv_usec * 1000) as u32);
             let bootup_timestamp = UNIX_EPOCH + duration;
-            let seconds_since_boot = match SystemTime::now().duration_since(bootup_timestamp) {
-                Ok(data) => data.as_secs(),
-                Err(_) => 0,
-            };
-
-            let mut formatted = String::new();
+            let seconds_since_boot = SystemTime::now()
+                .duration_since(bootup_timestamp)
+                .map(|d| d.as_secs())
+                .unwrap_or(0);
 
             let dd = seconds_since_boot / 60 / 60 / 24;
             let dd_suffix = if dd == 1 { "day" } else { "days" };
@@ -73,16 +72,14 @@ pub fn uptime() -> ColoredString {
             let mm = seconds_since_boot / 60 % 60;
             let mm_suffix = if mm == 1 { "minute" } else { "minutes" };
 
-            formatted.push_str(format!("{} {}, ", dd, dd_suffix).as_str());
-            formatted.push_str(format!("{} {}, ", hh, hh_suffix).as_str());
-            formatted.push_str(format!("{} {}", mm, mm_suffix).as_str());
+            format!(
+                "{} {}, {} {}, {} {}",
+                dd, dd_suffix, hh, hh_suffix, mm, mm_suffix
+            )
+        })
+        .unwrap_or_else(|| "Unavailable".to_string());
 
-            formatted
-        }
-        Err(_) => "Unavailable".to_string(),
-    };
-
-    return titled_segment("Uptime", uptime);
+    titled_segment("Uptime", uptime)
 }
 
 pub fn packages() -> ColoredString {
@@ -97,16 +94,18 @@ pub fn packages() -> ColoredString {
 
     let packages = format!("{} (brew)", local_packages + opt_packages);
 
-    return titled_segment("Packages", packages);
+    titled_segment("Packages", packages)
 }
 
 pub fn shell() -> ColoredString {
     let shell = env::var("SHELL").unwrap_or_else(|_| "unknown".to_string());
 
-    return titled_segment("Shell", shell);
+    titled_segment("Shell", shell)
 }
 
 pub fn resolution() -> ColoredString {
+    // SAFETY: CGMainDisplayID() is a safe FFI call that returns the display ID
+    // of the main display. It has no side effects and always returns a valid ID.
     let display = CGDisplay::new(unsafe { CGMainDisplayID() });
 
     let width = display.pixels_wide();
@@ -114,79 +113,72 @@ pub fn resolution() -> ColoredString {
 
     let resolution = format!("{}x{}", width, height);
 
-    return titled_segment("Resolution", resolution);
+    titled_segment("Resolution", resolution)
 }
 
 pub fn de() -> ColoredString {
-    let de = "Aqua".to_string();
-
-    return titled_segment("DE", de);
+    titled_segment("DE", "Aqua".to_string())
 }
 
 pub fn wm() -> ColoredString {
-    let wm = "Quartz Compositor".to_string();
-
-    return titled_segment("WM", wm);
+    titled_segment("WM", "Quartz Compositor".to_string())
 }
 
 pub fn terminal() -> ColoredString {
-    // only works for some terminals (Apple, iTerm2)
-    if let Ok(terminal) = env::var("TERM_PROGRAM") {
-        return titled_segment("Terminal", terminal);
-    }
-    if let Ok(_) = env::var("ALACRITTY_WINDOW_ID") {
-        return titled_segment("Terminal", "Alacritty".to_string());
-    }
-    if let Ok(_) = env::var("KITTY_WINDOW_ID") {
-        return titled_segment("Terminal", "kitty".to_string());
-    }
-    return titled_segment("Terminal", "unknown".to_string());
+    let terminal = env::var("TERM_PROGRAM")
+        .ok()
+        .or_else(|| {
+            env::var("ALACRITTY_WINDOW_ID")
+                .ok()
+                .map(|_| "Alacritty".to_string())
+        })
+        .or_else(|| {
+            env::var("KITTY_WINDOW_ID")
+                .ok()
+                .map(|_| "kitty".to_string())
+        })
+        .unwrap_or_else(|| "unknown".to_string());
+
+    titled_segment("Terminal", terminal)
 }
 
 pub fn cpu() -> ColoredString {
     let cpu = cache::fallback("cpu", || {
-        return ctl::get_ctl_info("machdep.cpu.brand_string")
-            .value_string()
-            .unwrap_or_else(|_| "Unknown CPU".to_string());
+        ctl::get_ctl_info("machdep.cpu.brand_string")
+            .and_then(|ctl| ctl.value_string().ok())
+            .unwrap_or_else(|| "Unknown CPU".to_string())
     });
 
-    return titled_segment("CPU", cpu);
+    titled_segment("CPU", cpu)
 }
 
 pub fn gpu() -> ColoredString {
     let gpu = cache::fallback("gpu", || {
+        // SAFETY: CGMainDisplayID() returns the main display ID, always valid.
+        // CGDisplay::new wraps it safely.
         let display = unsafe { CGDisplay::new(CGMainDisplayID()) };
+        // SAFETY: CGDirectDisplayCopyCurrentMetalDevice returns a valid Metal device
+        // for the given display ID. The display.id is guaranteed valid from above.
         let mtl_device = unsafe { CGDirectDisplayCopyCurrentMetalDevice(display.id) };
-        return unsafe { mtl_device.get_name().to_string() };
+        // SAFETY: get_name() returns a valid string reference from the Metal device.
+        unsafe { mtl_device.get_name().to_string() }
     });
 
-    return titled_segment("GPU", gpu);
+    titled_segment("GPU", gpu)
 }
 
 pub fn battery() -> ColoredString {
     let battery_info = (|| -> Option<String> {
         let manager = Manager::new().ok()?;
-        let mut batteries = manager.batteries().ok()?;
-
-        while let Some(battery_result) = batteries.next() {
-            let main_battery = battery_result.ok()?;
-            let main_battery_charge = main_battery.state_of_charge().value;
-            let main_battery_percentage = main_battery_charge * 100.0;
-
-            return Some(format!("{}%", main_battery_percentage.round()));
-        }
-
-        None
+        let battery = manager.batteries().ok()?.next()?.ok()?;
+        let percentage = battery.state_of_charge().value * 100.0;
+        Some(format!("{}%", percentage.round()))
     })();
 
-    if battery_info.is_some() {
-        return titled_segment(
-            "Power Source",
-            format!("Battery: {}", battery_info.unwrap_or("Unknown".to_string())),
-        );
+    match battery_info {
+        Some(info) => titled_segment("Power Source", format!("Battery: {}", info)),
+        None => titled_segment("Power Source", "Plugged In".to_string()),
     }
-
-    return titled_segment("Power Source", "Plugged In".to_string());
 }
 
 pub fn memory() -> ColoredString {
@@ -208,37 +200,81 @@ pub fn memory() -> ColoredString {
         percentage.round()
     );
 
-    return titled_segment("Memory", memory);
+    titled_segment("Memory", memory)
 }
 
 pub fn dark_colors() -> ColoredString {
-    let mut blocks = "".to_string();
+    let mut blocks = String::new();
 
     for i in 40..=47 {
-        blocks.push_str(format!("\x1b[{}m   ", i).as_str());
+        blocks.push_str(&format!("\x1b[{}m   ", i));
     }
 
     blocks.push_str("\x1b[0m");
-
-    return blocks.normal();
+    blocks.normal()
 }
 
 pub fn light_colors() -> ColoredString {
-    let mut blocks = "".to_string();
+    let mut blocks = String::new();
 
     for i in 100..=107 {
-        blocks.push_str(format!("\x1b[{}m{}", i, constants::COLOR_BLOCK_CHARACTER).as_str());
+        blocks.push_str(&format!("\x1b[{}m{}", i, constants::COLOR_BLOCK_CHARACTER));
     }
 
     blocks.push_str("\x1b[0m");
-
-    return blocks.normal();
+    blocks.normal()
 }
 
 pub fn empty() -> ColoredString {
-    return "".normal();
+    "".normal()
 }
 
 fn titled_segment(name: &str, out: String) -> ColoredString {
-    return format!("{}: {}", format!("{}", name).bold().yellow(), out).normal();
+    format!("{}: {}", name.bold().yellow(), out).normal()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_empty_returns_empty_string() {
+        let result = empty();
+        assert_eq!(result.to_string(), "");
+    }
+
+    #[test]
+    fn test_de_returns_aqua() {
+        let result = de();
+        assert!(result.to_string().contains("Aqua"));
+    }
+
+    #[test]
+    fn test_wm_returns_quartz() {
+        let result = wm();
+        assert!(result.to_string().contains("Quartz Compositor"));
+    }
+
+    #[test]
+    fn test_titled_segment_formatting() {
+        let result = titled_segment("Test", "Value".to_string());
+        let plain = result.to_string();
+        assert!(plain.contains("Test"));
+        assert!(plain.contains("Value"));
+        assert!(plain.contains(":"));
+    }
+
+    #[test]
+    fn test_dark_colors_has_reset_code() {
+        let result = dark_colors();
+        let plain = result.to_string();
+        assert!(plain.contains("\x1b[0m"));
+    }
+
+    #[test]
+    fn test_light_colors_has_reset_code() {
+        let result = light_colors();
+        let plain = result.to_string();
+        assert!(plain.contains("\x1b[0m"));
+    }
 }

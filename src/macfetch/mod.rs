@@ -18,7 +18,7 @@ pub fn render(logo: &str, segments: Vec<fn() -> ColoredString>) {
         let logo_line = match logo.get(i) {
             Some(line) => line.to_owned(),
             None => String::from(" ")
-                .repeat(logo.get(0).unwrap().len())
+                .repeat(logo.first().unwrap().len())
                 .normal(),
         };
         let segment_line = match segments.get(i) {

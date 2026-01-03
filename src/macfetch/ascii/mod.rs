@@ -3,7 +3,7 @@ pub mod constants;
 use colored::{ColoredString, Colorize};
 
 pub fn generate_logo(name: &str) -> Vec<ColoredString> {
-    return match name {
+    match name {
         constants::GABRIEL => vec![
             "            .xWXc ".bold(),
             "            :XMMx.".bold(),
@@ -23,7 +23,7 @@ pub fn generate_logo(name: &str) -> Vec<ColoredString> {
             "  ,xXWMMMMMMW0l.  ".bold(),
             "   .;xXWMWN0l.    ".bold(),
         ],
-        constants::DARWIN | _ => vec![
+        _ => vec![
             "                    'c.       ".bold().green(),
             "                 ,xNMM.       ".bold().green(),
             "               .OMMMMo        ".bold().green(),
@@ -42,5 +42,28 @@ pub fn generate_logo(name: &str) -> Vec<ColoredString> {
             "     ;KMMMMMMMWXXWMMMMMMMk.   ".bold().magenta(),
             "       .cooc,.    .,coo:.     ".bold().magenta(),
         ],
-    };
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_generate_logo_darwin_returns_correct_lines() {
+        let logo = generate_logo(constants::DARWIN);
+        assert_eq!(logo.len(), 17);
+    }
+
+    #[test]
+    fn test_generate_logo_gabriel_returns_correct_lines() {
+        let logo = generate_logo(constants::GABRIEL);
+        assert_eq!(logo.len(), 17);
+    }
+
+    #[test]
+    fn test_generate_logo_unknown_defaults_to_darwin() {
+        let logo = generate_logo("unknown");
+        assert_eq!(logo.len(), 17);
+    }
 }

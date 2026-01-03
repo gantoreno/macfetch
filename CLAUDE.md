@@ -9,6 +9,9 @@ cargo build              # Debug build
 cargo build --release    # Optimized release build
 cargo run                # Run debug target
 cargo run --release      # Run release target
+cargo test               # Run all unit tests
+cargo clippy             # Run linter
+cargo fmt                # Format code
 ```
 
 ## Architecture
@@ -28,7 +31,7 @@ Macfetch is a macOS-only Neofetch alternative written in Rust. It displays syste
 - Segments are functions with signature `fn() -> ColoredString` passed as a vector to `render()`.
 - System info is retrieved via `sysctl` crate, environment variables, and macOS-specific APIs (Core Graphics, Metal).
 - The `cache` module provides `fallback()` for expensive operations (CPU/GPU lookups).
-- CLI args are handled manually in `utils/cli.rs` (supports `-h`/`--help` and `-v`/`--version`).
+- CLI args are handled via `clap` in `utils/cli.rs` with derive-based parsing.
 
 ### Adding New Segments
 
